@@ -933,6 +933,9 @@ TrainerBattleVictory:
 	call nz, PlayBattleVictoryMusic
 	ld hl, TrainerDefeatedText
 	call PrintText
+	ld a, [wIsSwapBattle]
+	and a
+	ret z ; don't pay out until end of swap battle
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	ret z
@@ -6765,6 +6768,15 @@ PlayMoveAnimation:
 	predef_jump MoveAnimation
 
 InitBattle::
+	xor a
+	ld [wIsSwapBattle], a
+	jr _InitSwapBattleCommon
+
+InitSwapBattle:
+	ld a, 1
+	ld [wIsSwapBattle], a
+
+_InitSwapBattleCommon:
 	ld a, [wCurOpponent]
 	and a
 	jr z, DetermineWildOpponent
@@ -6802,6 +6814,14 @@ InitBattleCommon:
 	ld [wTrainerClass], a
 	call GetTrainerInformation
 	callfar ReadTrainer
+	ld a, [wIsSwapBattle]
+	and a
+	jr nz, .swapTeams
+	callfar SavePartyToSwap
+	jr .transition
+.swapTeams
+	callfar SwapTeams
+.transition
 	call DoBattleTransitionAndInitBattleVariables
 	call _LoadTrainerPic
 	xor a
@@ -6897,6 +6917,24 @@ _InitBattleCommon:
 	call z, DrawEnemyHUDAndHPBar ; draw enemy HUD and HP bar if it's a wild battle
 	call StartBattle
 	callfar EndOfBattle
+	ld a, [wIsInBattle]
+	dec a
+	jr z, .return ; don't swap teams in wild battles
+	ld a, [wIsSwapBattle]
+	and a
+	jr nz, .return ; don't swap teams twice
+	call AnyPartyAlive
+	ld a, d
+	and a
+	jr z, .return ; don't swap teams if player lost
+.swapBattle
+	call InitSwapBattle
+	callfar RestoreSwappedTeam
+.return
+	xor a
+	ld [wIsInBattle], a
+	ld [wBattleType], a
+	ld [wCurOpponent], a
 	pop af
 	ld [wLetterPrintingDelayFlags], a
 	pop af

@@ -1826,7 +1826,18 @@ wWarpEntries:: ds 32 * 4 ; Y, X, warp ID, map ID
 ; if $ff, the player's coordinates are not updated when entering the map
 wDestinationWarpID:: db
 
+UNION
 	ds 128
+NEXTU
+wIsSwapBattle:: db
+wSwapBytes:: db
+
+wSwapMonInfo::
+FOR n, 1, PARTY_LENGTH + 1
+wSwapMon{d:n}Info:: swap_info_struct wSwapMon{d:n}
+wSwapMon{d:n}InfoEnd::
+ENDR
+ENDU
 
 ; number of signs in the current map (up to 16)
 wNumSigns:: db
@@ -2033,10 +2044,19 @@ wSeafoamIslandsB3FCurScript:: db
 wRoute23CurScript:: db
 wSeafoamIslandsB4FCurScript:: db
 wRoute18Gate1FCurScript:: db
+
+UNION
 	ds 78
 wGameProgressFlagsEnd::
 
 	ds 56
+NEXTU
+wSwapMonStats::
+FOR n, 1, PARTY_LENGTH + 1
+wSwapMon{d:n}Stats:: swap_stats_struct wSwapMon{d:n}
+wSwapMon{d:n}StatsEnd::
+ENDR
+ENDU
 
 wObtainedHiddenItemsFlags:: flag_array MAX_HIDDEN_ITEMS
 
@@ -2220,6 +2240,8 @@ wLinkEnemyTrainerName:: ds NAME_LENGTH
 wSerialEnemyDataBlock:: ; ds $1a8
 
 	ds 9
+
+wEnemyPartyDataStart::
 
 wEnemyPartyCount:: ds 1
 wEnemyPartySpecies:: ds PARTY_LENGTH + 1
