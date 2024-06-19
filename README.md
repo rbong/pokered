@@ -1,29 +1,24 @@
-# Pokémon Red and Blue [![Build Status][ci-badge]][ci]
+# Pokémon Red and Blue: Swap Battle Edition
 
-This is a disassembly of Pokémon Red and Blue.
+This is a Pokémon Red/Blue hack where you swap teams with the enemy trainer
+after every battle and fight them one more time with your Pokémon switched.
 
-It builds the following ROMs:
+The idea behind this hack is to provide a unique challenge to Red and Blue,
+especially forcing you not to fight with overtleveled teams or rely too heavily
+on one Pokémon.
 
-- Pokemon Red (UE) [S][!].gb `sha1: ea9bcae617fdf159b045185467ae58b2e4a48b9a`
-- Pokemon Blue (UE) [S][!].gb `sha1: d7037c83e1ae5b39bde3c30787637ba1d4c48ce2`
-- BLUEMONS.GB (debug build) `sha1: 5b1456177671b79b263c614ea0e7cc9ac542e9c4`
-- dmgapae0.e69.patch `sha1: 0fb5f743696adfe1dbb2e062111f08f9bc5a293a`
-- dmgapee0.e68.patch `sha1: ed4be94dc29c64271942c87f2157bca9ca1019c7`
+Here's how it works:
 
-To set up the repository, see [**INSTALL.md**](INSTALL.md).
+    - The enemy trainer will fight you with your Pokémon as they were at the
+      start of the battle. This means you can fight with reduced HP/PP or
+      status effects, and the trainer will have to fight you with those
+      same limitations. Itemless runs are encouraged!
+    - After beating the trainer with your Pokémon swapped, you get back your
+      Pokémon as they were when you beat the enemy trainer's team.
+    - If your Pokémon reach a level where they will evolve, they'll evolve
+      after you beat the trainer with your original team, not after swapping.
+    - Only trainers swap Pokémon with you. You don't swap Pokémon with wild
+      encounters. Link battles have not been tested.
+    - If you black out, you won't swap.
 
-
-## See also
-
-- [**Wiki**][wiki] (includes [tutorials][tutorials])
-- [**Symbols**][symbols]
-
-You can find us on [Discord (pret, #pokered)](https://discord.gg/d5dubZ3).
-
-For other pret projects, see [pret.github.io](https://pret.github.io/).
-
-[wiki]: https://github.com/pret/pokered/wiki
-[tutorials]: https://github.com/pret/pokered/wiki/Tutorials
-[symbols]: https://github.com/pret/pokered/tree/symbols
-[ci]: https://github.com/pret/pokered/actions
-[ci-badge]: https://github.com/pret/pokered/actions/workflows/main.yml/badge.svg
+This hack is based on [pret's decompilation of Pokémon Red and Blue](https://github.com/pret/pokered).
