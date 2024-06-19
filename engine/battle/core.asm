@@ -6247,12 +6247,22 @@ LoadEnemyMonData:
 	inc de
 	ld a, [hl]     ; base exp
 	ld [de], a
+	ld a, [wIsSwapBattle]
+	and a
+	jr nz, .swapBattle
 	ld a, [wEnemyMonSpecies2]
 	ld [wd11e], a
 	call GetMonName
-	ld hl, wcd6d
-	ld de, wEnemyMonNick
+	ld hl, wcd6d ; copy mon name
+	jr .copyToNick
+.swapBattle
+	ld a, [wEnemyMonPartyPos]
+	ld hl, wEnemyMon1Nick
 	ld bc, NAME_LENGTH
+	call AddNTimes ; copy nickname
+.copyToNick
+	ld bc, NAME_LENGTH
+	ld de, wEnemyMonNick
 	call CopyData
 	ld a, [wEnemyMonSpecies2]
 	ld [wd11e], a
