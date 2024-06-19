@@ -4,7 +4,7 @@ This is a Pokémon Red/Blue hack where you swap teams with the enemy trainer
 after every battle and fight them one more time with your Pokémon switched.
 
 The idea behind this hack is to provide a unique challenge to Red and Blue,
-especially forcing you not to fight with overtleveled teams or rely too heavily
+especially forcing you not to fight with overleveled teams or rely too heavily
 on one Pokémon.
 
 Here's how it works:
