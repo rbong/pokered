@@ -6937,6 +6937,9 @@ _InitBattleCommon:
 	ld a, d
 	and a
 	jr z, .return ; don't swap teams if player lost
+	ld a, [wBattleType]
+	cp BATTLE_TYPE_OLD_MAN
+	jr z, .return ; don't swap teams for old man battle
 .swapBattle
 	call InitSwapBattle
 	callfar RestoreSwappedTeam
