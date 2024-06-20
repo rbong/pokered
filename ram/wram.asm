@@ -169,7 +169,18 @@ wSerialPartyMonsPatchList:: ds 200
 wSerialEnemyMonsPatchList:: ds 200
 ENDU
 
+UNION
 	ds 80
+NEXTU
+wIsSwapBattle:: db
+wSwapBytes:: db
+
+wSwapMonInfo::
+FOR n, 1, PARTY_LENGTH + 1
+wSwapMon{d:n}Info:: swap_info_struct wSwapMon{d:n}
+wSwapMon{d:n}InfoEnd::
+ENDR
+ENDU
 
 
 SECTION "Overworld Map", WRAM0
@@ -1826,18 +1837,7 @@ wWarpEntries:: ds 32 * 4 ; Y, X, warp ID, map ID
 ; if $ff, the player's coordinates are not updated when entering the map
 wDestinationWarpID:: db
 
-UNION
 	ds 128
-NEXTU
-wIsSwapBattle:: db
-wSwapBytes:: db
-
-wSwapMonInfo::
-FOR n, 1, PARTY_LENGTH + 1
-wSwapMon{d:n}Info:: swap_info_struct wSwapMon{d:n}
-wSwapMon{d:n}InfoEnd::
-ENDR
-ENDU
 
 ; number of signs in the current map (up to 16)
 wNumSigns:: db
